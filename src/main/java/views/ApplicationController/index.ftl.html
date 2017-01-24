@@ -1,0 +1,31 @@
+<#import "../layout/defaultLayout.ftl.html" as layout>
+    <@layout.myLayout "Home page">
+
+    <h2>Todo List</h2>
+    <br/>
+
+    <#if todoitems?has_content>
+        <form method="post" id="frmRemoveTodoItem" action="/removeToDoItem">
+            <ul class="list-group">
+                <#list todoitems as item>
+                    <li class="todoList list-group-item">
+                        <span class="itemText" data-pk="${item.id}">${item.todoItem}</span>
+                        <button type="button" class="itemBtn removeItemBtn" value="${item.id}">Remove</button>
+                        <button type="button" class="itemBtn editItemBtn" value="${item.id}">Edit</button>
+                    </li>
+                </#list>
+            </ul>
+            <input type="hidden" id="removeItemId" name="removeItemId"/>
+        </form>
+    <#else>
+        <h4>Todo list is empty.</h4>
+    </#if>
+
+    <br/>
+
+    <form method="post" action="/addToDoItem">
+        <input type="text" placeholder="Enter todo item" name="newTodoItem"/>
+        <input type="submit" value="Add Todo Item"/>
+    </form>
+
+</@layout.myLayout>
